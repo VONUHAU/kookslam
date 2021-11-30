@@ -49,7 +49,7 @@
                     z-index: 97;  
                 }
                 .can-pack{
-                    top: 40%;
+                    top: 30%;
                     left:48%;
                     z-index: 98;
                     min-width: 160px;
@@ -76,7 +76,7 @@
                 
                 }
                 .can-pack{
-                    top: 20% !important;
+                    top: 30% !important;
                     left:48%;
                 
                     width: clamp(300px, 50%, 500px) !important;
@@ -269,16 +269,19 @@
                 position: absolute;
                 top: 50%;
                 left: 50%;
-                width: 100%;
+                width: 80%;
                 transform: translate(-50%, -50%);
                 -webkit-transform: translate(-50%, -50%);
                 -moz-transform: translate(-50%, -50%);
                 -ms-transform: translate(-50%, -50%);
                 -o-transform: translate(-50%, -50%);
+                & > div{
+                    width: 100%;
+                }
             }
 
             //////////////////////////////////////////////////wave
-           
+                
                .wave-cover-top{
                     top: 50%;
                     left: 50%;
@@ -290,14 +293,27 @@
                
                 .wave-child-bottom{
                     position: absolute;
-                    top: 50%;
-                    width: 100%;
-                    transform: translate(0, -50%) scale(1, -1);
-                    -webkit-transform: translate(0, -50%) scale(1, -1);
-                    -moz-transform: translate(0, -50%) scale(1, -1);
-                    -ms-transform: translate(0, -50%) scale(1, -1);
-                    -o-transform: translate(0, -50%) scale(1, -1);
-}
+                    top: 60%;
+                    left: 50%;
+                    width: 120%;
+                    transform: translate(-50%, -50%) scale(1, -1);
+                    -webkit-transform: translate(-50%, -50%) scale(1, -1);
+                    -moz-transform: translate(-50%, -50%) scale(1, -1);
+                    -ms-transform: translate(-50%, -50%) scale(1, -1);
+                    -o-transform: translate(-50%, -50%) scale(1, -1);
+                }
+                .wave-child-top{
+                    position: absolute;
+                    top: 40%;
+                    left: 50%;
+                    width: 120%;
+                    transform: translate(-50%, -50%);
+                    -webkit-transform: translate(-50%, -50%);
+                    -moz-transform: translate(-50%, -50%);
+                    -ms-transform: translate(-50%, -50%);
+                    -o-transform: translate(-50%, -50%);
+                }
+
                 .wave-cover-bottom{
                     position: absolute;
                     top: 50%;
@@ -311,10 +327,10 @@
                     z-index: 0;
                 }
     
-          
+               
            
             //////////////////////////////////////////////
-            .solo-can-pros, {
+            .solo-can-pros {
                 position: relative;
                 .fruit{
                         opacity: 0;
@@ -372,6 +388,7 @@
         
     }
 }
+
 .party-section{
     background-color: #ffcaf1;
 }
@@ -380,4 +397,43 @@
 }
 .wave-section{
     background-color: #f87429;
+    padding-bottom: 0 !important;
+    .fluid-container{
+        background-color: black;
+        margin: 0 -15px;
+     
+        .black-wave-text{
+            text-align: center;
+            color: white;
+            padding: 0 15px;
+        }
+    }
+    .wave-cover-orange{
+        position: absolute;
+        top: 110%;
+        left: 50%;
+        width: 120%;
+        transform:  translate(-50%, -50%);
+        
+        z-index: 0;
+    }
+    .content{
+        margin-top: 0  !important;
+    }
+}
+.wave-horizon-bottom{
+    position: relative !important;
+    transform: scale(1,-1);
+    -webkit-transform: scale(1,-1);
+    -moz-transform: scale(1,-1);
+    -ms-transform: scale(1,-1);
+    -o-transform: scale(1,-1);
+    z-index: 0;
+}
+.wave-horizon-top{
+    position: relative !important;
+    width: 120%;
+    z-index: 0;
+    margin-top: -40px !important;
+  
 }

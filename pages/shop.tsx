@@ -15,6 +15,9 @@ import * as waveYellowLight from '../public/yellow-light-wave.json'
 import * as waveOrange from '../public/wave-organe.json'
 import * as waveNoneOutline from '../public/wave-noneOutline.json'
 import * as wavePinkNoneOutline from '../public/wave-pink-noneOutline.json'
+import * as waveOrangeNoneOutline from '../public/wave-orange-none-outline.json'
+import * as waveBlackNoneOutline from '../public/wave-black-none-outline.json'
+import * as shortWaveBlackNoneOutline from '../public/short-wave-black-none-outline.json'
 import SquadComponent from '../components/squadComponent'
 import useResize from '../components/resizeHook'
 interface IAppProps {
@@ -22,8 +25,10 @@ interface IAppProps {
 
 const Shop: React.FunctionComponent<IAppProps> = (props) => {
     const [is12pack, setpack] = useState(true);
-    const [w, setW] = useState<number>()
+    const [w, setW] = useState<number>();
 
+
+////gsap part
 gsap.registerPlugin(ScrollTrigger);
 const ref = useRef<HTMLDivElement>(null);
 const leftCanRef = useRef<HTMLDivElement>(null);
@@ -96,8 +101,7 @@ useEffect(() => {
         opacity: 0,
         duration: 0.5,
     })
-  
-   
+
     ScrollTrigger.create({
         trigger: ".kooksking-section",
         animation: tl,
@@ -136,7 +140,7 @@ const fruitAnimation = (className: string,x:number, y:number, deg: number, delay
     //const innerWidth = window.innerWidth;
     const divTarget = q(className);
     const xMove = canFruitRef?.current? canFruitRef.current.offsetWidth / 2 : 0; 
-    console.log(xMove)
+   
     const tl = gsap.timeline({defaults: { ease: "power1.inOut"}, repeat: -1, yoyo: true});
     const animation = 
     gsap.set(q(className), {
@@ -167,8 +171,6 @@ const fruitAnimation = (className: string,x:number, y:number, deg: number, delay
     
 }
 
-
-
 useEffect(()=>{
     setW(window.innerWidth);
     animationCanSolo(".can", -1);
@@ -185,6 +187,32 @@ useEffect(()=>{
     fruitAnimation(".blood-orange-03", 6, 100, -90, 0.2, -1, 50)
   
 }, [width])
+
+
+////hero gsap
+useEffect(() => {
+        console.log(q(".can-pack"))
+  
+        const tl = gsap.timeline({defaults: { ease: "none"}, repeat: -1, yoyo: true, repeatDelay :0 })
+        tl.set(q(".otf-pack"), {
+            y: -50,
+            xPercent: 0,
+            stagger: 0.5,
+            
+        })
+        .set(q(".rib-pack"), {
+            y: -25,
+        })
+        .set(q("pw-pack"), {
+            xPercent: 5,
+         
+        })
+       
+       
+    
+   
+}, []);
+
 
 ///bubble animtion gsap
 useEffect(() => {
@@ -221,6 +249,9 @@ const waveYellowLightOption = {...config,  animationData: waveYellowLight};
 const waveOrangeOption = {...config,  animationData: waveOrange};
 const waveNoneOutlineOption = {...config,  animationData: waveNoneOutline};
 const wavePinkNoneOutlineOption = {...config,  animationData: wavePinkNoneOutline};
+const waveOrangeNoneOutlineOption = {...config,  animationData: waveOrangeNoneOutline};
+const waveBlackNoneOutlineOption = {...config,  animationData: waveBlackNoneOutline};
+const shortWaveBlackNoneOutlineOption = {...config,  animationData: shortWaveBlackNoneOutline};
 
     const handlePickPack = (pack:boolean)=>{
         setpack(pack);
@@ -239,19 +270,19 @@ const wavePinkNoneOutlineOption = {...config,  animationData: wavePinkNoneOutlin
                             </div>
                             <div className="img-topic-wrapper">
                                 <div className="img-topic box">
-                                    <Image src="/12pack-open.png" alt="kookSlams" width = {800} height = {500} objectFit="contain"  />
+                                    <Image src="/12pack-open.png" alt="kookSlams" width = {800} height = {500} objectFit="contain" priority />
                                 </div>
                                 <div className="img-topic carboard">
-                                    <Image src="/carboard-bg-.png" alt="kookSlams" width = {500} height = {300} objectFit="contain"  />
+                                    <Image src="/carboard-bg-.png" alt="kookSlams" width = {500} height = {300} objectFit="contain"  priority/>
                                 </div>
                                 <div className="img-topic can-pack otf-pack">
-                                    <Image src="/otf-row.png" alt="kookSlams" width = {500} height = {300} objectFit="contain"  />
+                                    <Image src="/otf-row.png" alt="kookSlams" width = {500} height = {300} objectFit="contain"  priority/>
                                 </div>
                                 <div className="img-topic can-pack rib-pack">
-                                    <Image src="/rib-row.png" alt="kookSlams" width = {500} height = {300} objectFit="contain"  />
+                                    <Image src="/rib-row.png" alt="kookSlams" width = {500} height = {300} objectFit="contain" priority />
                                 </div>
                                 <div className="img-topic can-pack pw-pack">
-                                    <Image src="/pw-row.png" alt="kookSlams" width = {500} height = {300} objectFit="contain"  />
+                                    <Image src="/pw-row.png" alt="kookSlams" width = {500} height = {300} objectFit="contain"  priority/>
                                 
                                 </div>
                             </div>
@@ -383,7 +414,7 @@ const wavePinkNoneOutlineOption = {...config,  animationData: wavePinkNoneOutlin
                   
                         <div className="wave wave-cover-top">
                             <Lottie options={waveNoneOutlineOption}
-                                height={300}
+                                height={400}
                                 width= {'100%'}
                         
                             />
@@ -391,21 +422,21 @@ const wavePinkNoneOutlineOption = {...config,  animationData: wavePinkNoneOutlin
                         </div>
                         <div className="wave wave-cover-bottom">
                             <Lottie options={waveNoneOutlineOption}
-                                height={300}
+                                height={400}
                                 width= {'100%'}
                             />
                             
                         </div>
                         <div className="wave-child-top">
                             <Lottie options={wavePinkNoneOutlineOption}
-                                height={300}
+                                height={200}
                                 width= {'100%'}
                             />
                             
                         </div>
                         <div className="wave-child-bottom">
                             <Lottie options={wavePinkNoneOutlineOption}
-                                height={300}
+                                height={200}
                                 width= {'100%'}
                             />
                             
@@ -482,9 +513,7 @@ const wavePinkNoneOutlineOption = {...config,  animationData: wavePinkNoneOutlin
                             <Image src="/mango.png" alt="kookSlams" width={320} height={430} />
                         </div>
                         <div className="can can-right">
-                          
                                 <Image src="/can-01.png" alt="kookSlams" width={430} height={820} />
-                          
                         </div>
                            
                     </div>
@@ -508,6 +537,7 @@ const wavePinkNoneOutlineOption = {...config,  animationData: wavePinkNoneOutlin
                             width= {'100%'}
                         />
                     </div>
+                
                 </div>
                 <div className="container">
                     <div className="content">
@@ -520,9 +550,13 @@ const wavePinkNoneOutlineOption = {...config,  animationData: wavePinkNoneOutlin
                     </div>
                 </div>
                 <div className="fluid-container-party">
-                    <div className="wave">
-
+                    <div className="wave wave-cover-orange">
+                        <Lottie options={waveOrangeNoneOutlineOption}
+                                height={300}
+                                width= {'100%'}
+                        />
                     </div>
+                    
                     <div className="solo-can-pros">
                         <div className="fruit fruit-left blood-orange">
                             <Image src="/blood-orange.png" alt="kookSlams" width={300} height={300} />
@@ -542,17 +576,30 @@ const wavePinkNoneOutlineOption = {...config,  animationData: wavePinkNoneOutlin
                            
                     </div>
                 </div>
-                <div className="container">
+                
+                <div className="fluid-container">
+                    <div className="wave wave-horizon-top">
+                            <Lottie options={shortWaveBlackNoneOutlineOption}
+                                    height={200}
+                                    width= {'100%'}
+                            />
+                    </div>
                     <div className="content">
-                        <div className="sub-tittle">
+                        <div className="sub-tittle black-wave-text">
                             <p>
                                 All we can assure you of is a raging party for your palette that will give you pause and wonder if this is the greatest moment of your life. A moment that’s been crammed with Passionfruit, Orange and Guava. A moment that cannot accurately be described with mere words, it must be felt, nay, tasted.
                             </p>
                         </div>
                     </div>
                 </div>
-               
+                
             </section>
+                <div className="wave wave-horizon-bottom">
+                        <Lottie options={waveBlackNoneOutlineOption}
+                                height={300}
+                                width= {'100%'}
+                        />
+                </div>
             </div>
             <SquadComponent/>
         </Layout>
