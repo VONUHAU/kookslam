@@ -24,9 +24,22 @@ interface IAppProps {
 }
 
 const Shop: React.FunctionComponent<IAppProps> = (props) => {
-    const [is12pack, setpack] = useState(true);
+    const [is12pack, setpack] = useState<number>(12);
     const [w, setW] = useState<number>();
+    const [card, addToCard] = useState<number>(1);
 
+    //////handle add to card
+const handleAddToCard = (quanity:number) =>{
+    var cardNumbers = card;
+    cardNumbers +=quanity;
+    
+    if(cardNumbers >=0){
+        addToCard(cardNumbers);
+    }
+    console.log((card*21.99).toFixed(2))
+
+    
+}
 
 ////gsap part
 gsap.registerPlugin(ScrollTrigger);
@@ -34,7 +47,9 @@ const ref = useRef<HTMLDivElement>(null);
 const leftCanRef = useRef<HTMLDivElement>(null);
 const canFruitRef = useRef<HTMLDivElement>(null);
 const fruitRef = useRef<HTMLDivElement>(null);
+const canPackRef = useRef<HTMLDivElement>(null);
 const q = gsap.utils.selector(ref);
+
 let width = useResize();
 
 //tear drop flow
@@ -193,24 +208,42 @@ useEffect(()=>{
 useEffect(() => {
         console.log(q(".can-pack"))
   
-        const tl = gsap.timeline({defaults: { ease: "none"}, repeat: -1, yoyo: true, repeatDelay :0 })
-        tl.set(q(".otf-pack"), {
-            y: -50,
-            xPercent: 0,
-            stagger: 0.5,
-            
+        const tl = gsap.timeline({defaults: { ease: "none", duration: 1}, repeat: -1, yoyo: true});
+        gsap.set(q(".pw-pack"), {
+            x: -30,
         })
-        .set(q(".rib-pack"), {
-            y: -25,
+        gsap.set(q(".otf-pack"), {
+            x: 30,
         })
-        .set(q("pw-pack"), {
-            xPercent: 5,
-         
+        gsap.to(q(".pw-pack"), {
+          y: -canPackRef?.current?.offsetHeight,
+           repeat: -1,
+           duration: 2,
+           ease: "power1.inOut",
+           yoyo: true,
+           modifiers: {
+            y: gsap.utils.unitize(y => y+1)  
+          }
         })
-       
-       
-    
-   
+        gsap.to(q(".rib-pack"), {
+            y: -120,
+            repeat: -1,
+            duration: 2,
+            ease: "power1.inOut",
+            yoyo: true,
+            delay: 0.5
+        })
+        gsap.to(q(".otf-pack"), {
+            y: -120,
+            repeat: -1,
+            duration: 2,
+            ease: "power1.inOut",
+            yoyo: true,
+            delay: 1
+        })
+        
+      
+        
 }, []);
 
 
@@ -275,7 +308,7 @@ const shortWaveBlackNoneOutlineOption = {...config,  animationData: shortWaveBla
                                 <div className="img-topic carboard">
                                     <Image src="/carboard-bg-.png" alt="kookSlams" width = {500} height = {300} objectFit="contain"  priority/>
                                 </div>
-                                <div className="img-topic can-pack otf-pack">
+                                <div className="img-topic can-pack otf-pack" ref = {canPackRef}>
                                     <Image src="/otf-row.png" alt="kookSlams" width = {500} height = {300} objectFit="contain"  priority/>
                                 </div>
                                 <div className="img-topic can-pack rib-pack">
@@ -295,9 +328,9 @@ const shortWaveBlackNoneOutlineOption = {...config,  animationData: shortWaveBla
                                         <div className="pick-size">
                                             <p>Pick Size</p>
                                             <div className="size">
-                                                <div className={is12pack? "6-pack pack picked" : "6-pack pack"} onClick = {()=>handlePickPack(true)}> <p> 12 </p> </div>
+                                                <div className={is12pack == 12? "6-pack pack picked" : "6-pack pack"} onClick = {()=>handlePickPack(12)}> <p> 12 </p> </div>
                                                         
-                                                <div className={is12pack? "12-pack pack" : "12-pack pack picked"} onClick = {()=>handlePickPack(false)}><p>6 </p> </div>
+                                                <div className={is12pack == 12? "12-pack pack" : "12-pack pack picked"} onClick = {()=>handlePickPack(6)}><p>6 </p> </div>
 
                                                 
                                             </div>
@@ -305,13 +338,13 @@ const shortWaveBlackNoneOutlineOption = {...config,  animationData: shortWaveBla
                                         <div className="quanity">
                                             <p>QTY</p>
                                             <div className="count">
-                                                <div className="subtract"> - </div>
-                                                <div className="number"> 1 </div>
-                                                <div className="add"> + </div>
+                                                <div className="subtract" onClick = {()=>handleAddToCard(-1)}> - </div>
+                                                <div className="number"> {card} </div>
+                                                <div className="add" onClick = {()=>handleAddToCard(1)}> + </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="sum"> $21.99</div>
+                                    <div className="sum">  {is12pack==12? `$${(card*21.99).toFixed(2)}`: `$${(card*12.99).toFixed(2)}`}</div>
                                 </div>
                                 <Link href="/check-out">
                                 <a>
@@ -365,24 +398,24 @@ const shortWaveBlackNoneOutlineOption = {...config,  animationData: shortWaveBla
                </div>
                <div className="kookslams-single-can">
                         <div className="spinner">
-                            <Image src="/spinner.png" alt="kookSlams" width={1200} height={1200} />
+                            <Image src="/spinner.png" alt="kookSlams" width={1200} height={1200} priority/>
                         </div>
                         <div className="white-can blank-can">
-                            <Image src="/blank-can.png" alt="kookSlams" width={340} height={649} />
+                            <Image src="/blank-can.png" alt="kookSlams" width={340} height={649} priority/>
                         </div>
                         <div className="white-can white-outline-can">
-                            <Image src="/white-can.png" alt="kookSlams" width={340} height={649} />
+                            <Image src="/white-can.png" alt="kookSlams" width={340} height={649} priority/>
                         </div>
                        
                         <div className="cans">
                             <div className="can-spin can-left" ref= {leftCanRef}>
-                                <Image src="/can-02.png" alt="kookSlams" width={340} height={649} />
+                                <Image src="/can-02.png" alt="kookSlams" width={340} height={649} priority />
                             </div>
                             <div className="can-spin can-center">
-                                <Image src="/can-01.png" alt="kookSlams" width={340} height={649} />
+                                <Image src="/can-01.png" alt="kookSlams" width={340} height={649} priority/>
                             </div>
                             <div className="can-spin can-right">
-                                <Image src="/can-03.png" alt="kookSlams" width={340} height={649} />
+                                <Image src="/can-03.png" alt="kookSlams" width={340} height={649} priority />
                             </div>
 
                         </div>
