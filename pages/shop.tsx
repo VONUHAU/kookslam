@@ -41,7 +41,7 @@ const handleAddToCard = (quanity:number) =>{
     
 }
 
-////gsap part
+/////////////////////////////////////////////gsap part
 gsap.registerPlugin(ScrollTrigger);
 const ref = useRef<HTMLDivElement>(null);
 const leftCanRef = useRef<HTMLDivElement>(null);
@@ -268,6 +268,32 @@ useEffect(() => {
    
 }, []);
 
+
+////fadein elements went scroll
+const gsapFadeIn = (className:string, trigger: string, y:number, duration: number, stagger?: number) =>{
+    const element = ref.current;
+    const gs = gsap.from(q(className), {
+        y: y,
+        z: 99999,
+        ease: "none",
+        duration,
+        stagger: 0.2,
+        scrollTrigger: {
+          trigger: element!.querySelector(trigger),
+          scrub: false,
+          start: "top center",
+          end: "top top"
+        }
+      });
+    return gs
+}
+
+useEffect(()=>{
+    gsapFadeIn(".party-fadein", ".party-section", 120, 1.5, 0.3);
+    gsapFadeIn(".wave-fadein", ".wave-section", 120, 1.5, 0.3);
+    gsapFadeIn(".over-fadein", ".over-section", 120, 1.5, 0.3);
+  
+},[])
 //wave config
 const config = {
     loop: true,
@@ -380,15 +406,14 @@ const shortWaveBlackNoneOutlineOption = {...config,  animationData: shortWaveBla
                        </div>
                        <div className="tear-king">
                             <div className="tear">
-                                
-                            <Image src="/tear-drop.png" alt="kookSlams" width = {50} height = {25} objectFit="contain"  />
+                                <Image src="/tear-drop.png" alt="kookSlams" width = {50} height = {25} objectFit="contain"  />
                             </div>
-                            <Image src="/kooksking.svg" alt="kookSlams" width = {500} height = {300} objectFit="contain"  />
+                                <Image src="/kooksking.svg" alt="kookSlams" width = {500} height = {300} objectFit="contain"  />
                        </div>
                        
                         <div className=" sub-tittle title-light">
                             <p>
-                            After the wise one heard our tales of bubbly grandeur he smiled upon us and shed one single tear. It would be this very tear that would inspire our three unique flavors.
+                                After the wise one heard our tales of bubbly grandeur he smiled upon us and shed one single tear. It would be this very tear that would inspire our three unique flavors.
                             </p>
                         </div>
                    </div>
@@ -428,24 +453,23 @@ const shortWaveBlackNoneOutlineOption = {...config,  animationData: shortWaveBla
                <Lottie options={wavePinkLightOption}
                         height={300}
                         width= {'100%'}
-                
-                    />
+                />
             </div>
             <section className="section flavor-section party-section">
               
                 <div className="container">
-                    <div className="content">
-                        <div className="tittle">
+                    <div className="content ">
+                        <div className="tittle party-fadein">
                             <h1>Party Wave</h1>
                         </div>
-                        <div className="sub-tittle">
+                        <div className="sub-tittle party-fadein">
                             <p> Party Wave was born on the belief that your squad and POG matter. However mysterious the two might be, both experiences give you a confidence that your life was meant for something much bigger than yourself.</p>
                         </div>
                     </div>
                 </div>
-                <div className="fluid-container-party">
+                <div className="fluid-container-party ">
                   
-                        <div className="wave wave-cover-top">
+                        <div className="wave wave-cover-top ">
                             <Lottie options={waveNoneOutlineOption}
                                 height={400}
                                 width= {'100%'}
@@ -453,7 +477,7 @@ const shortWaveBlackNoneOutlineOption = {...config,  animationData: shortWaveBla
                             />
                             
                         </div>
-                        <div className="wave wave-cover-bottom">
+                        <div className="wave wave-cover-bottom ">
                             <Lottie options={waveNoneOutlineOption}
                                 height={400}
                                 width= {'100%'}
@@ -475,10 +499,8 @@ const shortWaveBlackNoneOutlineOption = {...config,  animationData: shortWaveBla
                             
                         </div>
                       
-                   
-                   
                     <div className="solo-can-pros">
-                        <div className="fruit fruit-left passion-fruit">
+                        <div className="fruit fruit-left passion-fruit party-fadein">
                             <Image src="/passionfruit.png" alt="kookSlams" width={330} height={362} />
                         </div>
                         <div className="fruit fruit-left-02 orange" ref = {fruitRef}>
@@ -520,10 +542,10 @@ const shortWaveBlackNoneOutlineOption = {...config,  animationData: shortWaveBla
                 </div>
                 <div className="container">
                     <div className="content">
-                        <div className="tittle">
+                        <div className="tittle over-fadein">
                             <h1>Party Wave</h1>
                         </div>
-                        <div className="sub-tittle">
+                        <div className="sub-tittle over-fadein">
                             <p> Party Wave was born on the belief that your squad and POG matter. However mysterious the two might be, both experiences give you a confidence that your life was meant for something much bigger than yourself.</p>
                         </div>
                     </div>
@@ -533,19 +555,19 @@ const shortWaveBlackNoneOutlineOption = {...config,  animationData: shortWaveBla
                         <Image src="/yellow-star.svg" alt="kookSlams" width={1200} height={2000} />
                     </div>
                     <div className="solo-can-pros">
-                        <div className="fruit pineapple fruit-right">
+                        <div className="fruit pineapple fruit-right over-fadein">
                             <Image src="/pineapple.png" alt="kookSlams" width={500} height={290} />
                         </div>
-                        <div className="fruit pineapple-02 fruit-right-02">
+                        <div className="fruit pineapple-02 fruit-right-02 over-fadein">
                             <Image src="/pineapple.png" alt="kookSlams" width={500} height={290} />
                         </div>
-                        <div className="fruit  fruit-left mango">
+                        <div className="fruit  fruit-left mango over-fadein">
                              <Image src="/mango.png" alt="kookSlams" width={320} height={430} />
                         </div>
-                        <div className="fruit fruit-left-02 mango-02">
+                        <div className="fruit fruit-left-02 mango-02 over-fadein">
                             <Image src="/mango.png" alt="kookSlams" width={320} height={430} />
                         </div>
-                        <div className="can can-right">
+                        <div className="can can-right over-fadein">
                                 <Image src="/can-01.png" alt="kookSlams" width={430} height={820} />
                         </div>
                            
@@ -574,10 +596,10 @@ const shortWaveBlackNoneOutlineOption = {...config,  animationData: shortWaveBla
                 </div>
                 <div className="container">
                     <div className="content">
-                        <div className="tittle">
+                        <div className="tittle wave-fadein">
                             <h1>Party Wave</h1>
                         </div>
-                        <div className="sub-tittle">
+                        <div className="sub-tittle wave-fadein">
                             <p> Party Wave was born on the belief that your squad and POG matter. However mysterious the two might be, both experiences give you a confidence that your life was meant for something much bigger than yourself.</p>
                         </div>
                     </div>
@@ -591,20 +613,18 @@ const shortWaveBlackNoneOutlineOption = {...config,  animationData: shortWaveBla
                     </div>
                     
                     <div className="solo-can-pros">
-                        <div className="fruit fruit-left blood-orange">
+                        <div className="fruit fruit-left blood-orange wave-fadein">
                             <Image src="/blood-orange.png" alt="kookSlams" width={300} height={300} />
                         </div>
                        
-                        <div className="fruit fruit-left-02 blood-orange-02">
+                        <div className="fruit fruit-left-02 blood-orange-02 wave-fadein">
                              <Image src="/blood-orange.png" alt="kookSlams" width={330} height={330} />
                         </div>
-                        <div className="fruit fruit-left-02 blood-orange-03">
+                        <div className="fruit fruit-left-02 blood-orange-03 wave-fadein">
                             <Image src="/blood-orange.png" alt="kookSlams" width={350} height={350} />
                         </div>
-                        <div className="can can-right-solo">
-                          
-                                <Image src="/can-03.png" alt="kookSlams" width={430} height={820} />
-                          
+                        <div className="can can-right-solo wave-fadein">
+                            <Image src="/can-03.png" alt="kookSlams" width={430} height={820} />
                         </div>
                            
                     </div>
